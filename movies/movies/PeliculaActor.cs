@@ -8,8 +8,8 @@ namespace movies
 {
     class PeliculaActor
     {
-        Pelicula pelicula;
-        Person actor;
+        public Pelicula pelicula;
+        public Person actor;
 
         public PeliculaActor(Pelicula pelicula, Person actor)
         {

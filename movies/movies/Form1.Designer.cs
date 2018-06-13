@@ -37,6 +37,7 @@
             this.buttonDirectores = new System.Windows.Forms.Button();
             this.buttonActores = new System.Windows.Forms.Button();
             this.buttonPeliculas = new System.Windows.Forms.Button();
+            this.InfoItem = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +54,7 @@
             // panel1
             // 
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.InfoItem);
             this.panel1.Controls.Add(this.InfoSearch);
             this.panel1.Controls.Add(this.texSearch);
             this.panel1.Controls.Add(this.buttonEstudios);
@@ -62,7 +64,7 @@
             this.panel1.Controls.Add(this.buttonPeliculas);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(512, 279);
+            this.panel1.Size = new System.Drawing.Size(739, 341);
             this.panel1.TabIndex = 1;
             // 
             // InfoSearch
@@ -72,6 +74,7 @@
             this.InfoSearch.Name = "InfoSearch";
             this.InfoSearch.Size = new System.Drawing.Size(399, 108);
             this.InfoSearch.TabIndex = 5;
+            this.InfoSearch.SelectedIndexChanged += new System.EventHandler(this.InfoSearch_SelectedIndexChanged);
             // 
             // texSearch
             // 
@@ -80,6 +83,7 @@
             this.texSearch.Size = new System.Drawing.Size(399, 20);
             this.texSearch.TabIndex = 2;
             this.texSearch.Text = "search...";
+            this.texSearch.Click += new System.EventHandler(this.texSearch_Click);
             this.texSearch.TextChanged += new System.EventHandler(this.texSearch_TextChanged);
             // 
             // buttonEstudios
@@ -132,6 +136,14 @@
             this.buttonPeliculas.UseVisualStyleBackColor = true;
             this.buttonPeliculas.Click += new System.EventHandler(this.buttonPeliculas_Click);
             // 
+            // InfoItem
+            // 
+            this.InfoItem.AutoSize = true;
+            this.InfoItem.Location = new System.Drawing.Point(518, 49);
+            this.InfoItem.Name = "InfoItem";
+            this.InfoItem.Size = new System.Drawing.Size(0, 13);
+            this.InfoItem.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -159,6 +171,7 @@
         private System.Windows.Forms.Button buttonDirectores;
         private System.Windows.Forms.TextBox texSearch;
         private System.Windows.Forms.ListBox InfoSearch;
+        private System.Windows.Forms.Label InfoItem;
     }
 }
 

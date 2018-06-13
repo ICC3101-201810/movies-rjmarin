@@ -18,24 +18,21 @@ namespace movies
 {
     public partial class Form1 : Form
     {
-        
+        BaseDeDatos bsd = BaseDeDatos.Deserialize_("batos.bin");
         List<Person> personas = new List<Person>();
         List<Pelicula> peliculas = new List<Pelicula>();
         List<Estudio> estudios = new List<Estudio>();
         List<PeliculaActor> peliculaActors = new List<PeliculaActor>();
         List<PeliculaProductor> peliculaProductors = new List<PeliculaProductor>();
-        BaseDeDatos bsd;
-       
+        
+
+
         public Form1()
         {
             InitializeComponent();
-            System.Threading.Thread.Sleep(5000);
-            label1.Visible = false;
             panel1.Visible = true;
-            BinaryFormatter bif = new BinaryFormatter();
-            FileStream fis = File.Open("Datos.bin", FileMode.OpenOrCreate);
-            bsd = (BaseDeDatos)bif.Deserialize(fis);
-            fis.Close();
+            
+            
 
         }
 
@@ -44,7 +41,8 @@ namespace movies
         private void texSearch_TextChanged(object sender, EventArgs e)
         {
             InfoSearch.Items.Clear();
-           if(texSearch.Text.Length > 3)
+            
+           if(texSearch.Text.Length > 2)
             {
                 int countp = 0;
                 int countpp = 0;
@@ -55,7 +53,7 @@ namespace movies
                     {
                         if (!(InfoSearch.Items.Contains(p)))
                         {
-                            InfoSearch.Items.Add(p);
+                            InfoSearch.Items.Add(p.Info());
                             countp++;
                         }
                         if (countp==20)
@@ -70,7 +68,7 @@ namespace movies
                     {
                         if (!(InfoSearch.Items.Contains(p)))
                         {
-                            InfoSearch.Items.Add(p);
+                            InfoSearch.Items.Add(p.Info());
                             countpp++;
                         }
                         if (countpp == 15)
@@ -82,7 +80,7 @@ namespace movies
                     {
                         if (!(InfoSearch.Items.Contains(p)))
                         {
-                            InfoSearch.Items.Add(p);
+                            InfoSearch.Items.Add(p.Info());
                             countpp++;
                         }
                         if (countpp == 15)
@@ -98,7 +96,7 @@ namespace movies
                     {
                         if (!(InfoSearch.Items.Contains(p)))
                         {
-                            InfoSearch.Items.Add(p);
+                            InfoSearch.Items.Add(p.Info());
                             countpp++;
                         }
                         if (countppp == 15)
@@ -110,7 +108,7 @@ namespace movies
                     {
                         if (!(InfoSearch.Items.Contains(p)))
                         {
-                            InfoSearch.Items.Add(p);
+                            InfoSearch.Items.Add(p.Info());
                             countpp++;
                         }
                         if (countppp == 15)
@@ -127,10 +125,11 @@ namespace movies
 
         private void buttonPeliculas_Click(object sender, EventArgs e)
         {
+            InfoSearch.Items.Clear();
             InfoSearch.Visible = true;
             foreach  (Pelicula p in this.bsd.peliculas)
             {
-                InfoSearch.Items.Add(p);
+                InfoSearch.Items.Add(p.Info());
             }
         }
 
@@ -142,7 +141,7 @@ namespace movies
             {
                 if(p.profesion== "actor")
                 {
-                    InfoSearch.Items.Add(p);
+                    InfoSearch.Items.Add(p.Info());
                 }
                 
             }
@@ -156,7 +155,7 @@ namespace movies
             {
                 if (p.profesion == "director")
                 {
-                    InfoSearch.Items.Add(p);
+                    InfoSearch.Items.Add(p.Info());
                 }
 
             }
@@ -170,7 +169,7 @@ namespace movies
             {
                 if (p.profesion == "productor")
                 {
-                    InfoSearch.Items.Add(p);
+                    InfoSearch.Items.Add(p.Info());
                 }
 
             }
@@ -182,8 +181,54 @@ namespace movies
             InfoSearch.Visible = true;
             foreach (Estudio p in this.bsd.estudios)
             {   
-                InfoSearch.Items.Add(p);
+                InfoSearch.Items.Add(p.Info());
             }
+        }
+
+        private void texSearch_Click(object sender, EventArgs e)
+        {
+            texSearch.Clear();
+            InfoSearch.Items.Clear();
+        }
+
+        private void InfoSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            InfoItem.Text = " ";
+            foreach (Pelicula item in peliculas)
+            {
+       
+                    
+                    if (InfoSearch.SelectedItem.Equals(item.Info()))
+                    {
+                        InfoItem.Text += item.Info(peliculaActors, peliculaProductors);
+                    }
+
+              
+            }
+            foreach (Person item in personas)
+            {
+           
+                    
+                    if (InfoSearch.SelectedItem.Equals(item.Info()))
+                    {
+                        InfoItem.Text += item.Info(peliculaActors, peliculaProductors);
+                    }
+
+            
+            }
+            foreach (Estudio item in estudios)
+            {
+            
+                    
+                    if (InfoSearch.SelectedItem.Equals(item.Info()))
+                    {
+                        InfoItem.Text += item.Info(peliculas);
+                    }
+
+            
+            }
+
+
         }
     }
 }
