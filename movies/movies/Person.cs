@@ -33,16 +33,17 @@ namespace movies
         }
         public string Info(List<PeliculaActor> peliculaActors, List<PeliculaProductor> peliculaProductors)
         {
+            BaseDeDatos bsd = BaseDeDatos.Deserialize_("batos.bin");
             string info = "nombre: " + nombre + " " + apellido + "\nprofesion: " + profesion + "\n" + "fecha de nacimiento " +
-               fechaDeNacimiento + "\biografia: " + biografia +"\n";
+               fechaDeNacimiento + "\nbiografia: " + biografia +"\n";
             info += "--------------------------\n";
             
-            if (this.profesion=="productor")
+            if (profesion=="productor")
             {
                
-                foreach (PeliculaProductor p in peliculaProductors)
+                foreach (PeliculaProductor p in bsd.peliculaProductors)
                 {
-                    if (p.productor == this)
+                    if (p.productor.biografia == this.biografia)
                     {
                         info += "nombre de la pelicula: " + p.pelicula.nombre + "\n Descripcion: " + p.pelicula.descripcion + "\n";
                         info += "--------------------------\n";
@@ -51,12 +52,13 @@ namespace movies
                 }
             }
 
-            if (this.profesion == "actor")
+            if (profesion == "actor")
             {
-                foreach (PeliculaActor p in peliculaActors)
+                info += "peliculas en las que ha actuado:\n";
+                foreach (PeliculaActor p in bsd.peliculaActors)
                 {
-                    info += "peliculas en las que ha actuado:\n";
-                    if (p.actor == this)
+                    
+                    if (p.actor.biografia == this.biografia)
                     {
                         info += "nombre de la pelicula: " + p.pelicula.nombre + "\n Descripcion: " + p.pelicula.descripcion + "\n";
                         info += "--------------------------\n";
@@ -65,7 +67,19 @@ namespace movies
                 }
 
             }
-            
+            if (profesion == "director")
+            {
+
+                foreach (Pelicula p in bsd.peliculas)
+                {
+                    if (p.director.biografia == this.biografia)
+                    {
+                        info += "nombre de la pelicula: " + p.nombre + "\n Descripcion: " +p.descripcion + "\n";
+                        info += "--------------------------\n";
+
+                    }
+                }
+            }
 
             return info;
         }

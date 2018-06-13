@@ -194,35 +194,39 @@ namespace movies
         private void InfoSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
             InfoItem.Text = " ";
-            foreach (Pelicula item in peliculas)
+            
+            foreach (Pelicula item in this.bsd.peliculas)
             {
-       
+                
+                if (InfoSearch.SelectedItem.ToString() ==(item.Info()))
+                {
                     
-                    if (InfoSearch.SelectedItem.Equals(item.Info()))
-                    {
-                        InfoItem.Text += item.Info(peliculaActors, peliculaProductors);
-                    }
+                    string inf = item.Info(peliculaActors, peliculaProductors);
+                    InfoItem.Text += inf;
+                }
 
               
             }
-            foreach (Person item in personas)
+            foreach (Person item in this.bsd.personas)
             {
            
                     
                     if (InfoSearch.SelectedItem.Equals(item.Info()))
                     {
-                        InfoItem.Text += item.Info(peliculaActors, peliculaProductors);
+                        string inf= item.Info(peliculaActors, peliculaProductors);
+                        InfoItem.Text += inf;
                     }
 
             
             }
-            foreach (Estudio item in estudios)
+            foreach (Estudio item in this.bsd.estudios)
             {
             
                     
                     if (InfoSearch.SelectedItem.Equals(item.Info()))
                     {
-                        InfoItem.Text += item.Info(peliculas);
+                        string inf = item.Info(peliculas);
+                        InfoItem.Text += inf;
                     }
 
             

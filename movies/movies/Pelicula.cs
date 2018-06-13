@@ -35,26 +35,29 @@ namespace movies
         }
         public string Info(List<PeliculaActor> peliculaActors, List<PeliculaProductor> peliculaProductors)
         {
+            BaseDeDatos bsd = BaseDeDatos.Deserialize_("batos.bin");
             string info = "nombre: " + nombre + "\ndescripcion: " + descripcion + "\nfecha de estreno"+fechaDeEstreno +"\n" +
                 "presupuesto: " + presupuesto + "estudio: " + estudio.nombre +" \n";
-            info += "--------------------------\n";
+            info += "-----------------------------------\n";
             info += "Director: " + director.nombre+ " " + director.apellido ;
             info += "\nproductor/es\n";
-            info += "--------------------------\n";
-            foreach (PeliculaProductor item in peliculaProductors) 
+            info += "-----------------------------------\n";
+            foreach (PeliculaProductor item in bsd.peliculaProductors) 
             {
-                if (this == item.pelicula)
+                if (this.descripcion == item.pelicula.descripcion && this.nombre == item.pelicula.nombre)
                 {
                     info += "nombre: " + item.productor.nombre + " " + item.productor.apellido + "\n";
                 }
             }
-            foreach (PeliculaActor item in peliculaActors)
+            info += "actores\n ---------------------------------------\n";
+            foreach (PeliculaActor item in bsd.peliculaActors)
             {
-                if (this == item.pelicula)
+                if (this.descripcion == item.pelicula.descripcion && this.nombre == item.pelicula.nombre)
                 {
                     info += "nombre: " + item.actor.nombre + " " + item.actor.apellido + "\n";
                 }
             }
+            info += "-----------------------------------\n";
             return info;
 
         }
